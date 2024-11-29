@@ -1,8 +1,25 @@
 package IntroOOPS;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BankAccount {
     private double balance;
     private String OwnerName;
+    private List<String> Transactions;
+
+    public BankAccount(){
+        balance = 0;
+        OwnerName = "";
+        Transactions = new ArrayList<String>();
+    }
+
+    public BankAccount(String OwnerName, double balance) {
+        this.OwnerName = OwnerName;
+        this.balance = balance;
+        Transactions = new ArrayList<String>();
+        Transactions.add("Balance set $" + balance);
+    }
 
     public void deposit(double amount) {
         if (amount < 0)
@@ -18,6 +35,7 @@ public class BankAccount {
         if (balance - amount < 0)
             throw new IllegalArgumentException("Amount cannot be less than balance");
         balance = balance - amount;
+        Transactions.add("Withdraw $" + amount);
     }
     public double getBalance() {
         return balance;
@@ -37,5 +55,12 @@ public class BankAccount {
         if(balance < 0)
             throw new IllegalArgumentException("Balance cannot be negative");
         this.balance = balance;
+        Transactions.add("Deposited $" + balance);
+    }
+
+    public void printTransactionsHistory() {
+        for (String transaction : Transactions) {
+            System.out.println(transaction);
+        }
     }
 }
