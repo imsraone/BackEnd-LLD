@@ -5,9 +5,9 @@ public abstract class User {
     private String name;
     private String contactInfo;
     private static int totalUsers = 0;
+    abstract void returnBook();
     public User() {
         this.userId = this.generateUniqueId();
-        totalUsers += 1;
     }
     public User(String name, String contactInfo) {
         this.name = name;
@@ -37,6 +37,7 @@ public abstract class User {
         this.contactInfo = contactInfo;
     }
     private final String generateUniqueId(){
+        totalUsers++;
         return "user_" + String.valueOf(totalUsers);
     }
     public abstract void displayDashboard();

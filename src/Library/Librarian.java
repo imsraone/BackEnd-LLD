@@ -1,7 +1,7 @@
 package Library;
 
 public class Librarian extends User {
-    private String employeeNumber;
+    private final String employeeNumber;
 
     public Librarian(String name, String contactInfo, String employeeNumber) {
         super(name, contactInfo);
@@ -10,7 +10,7 @@ public class Librarian extends User {
 
     @Override
     public void displayDashboard() {
-        System.out.println("Welcome to Library Manager");
+        System.out.println("Welcome to Library Dashboard");
         System.out.println("Name : " + getName());
         System.out.println("Contact Info : " + getContactInfo());
         System.out.println("Employee Number: " + employeeNumber);
@@ -18,13 +18,18 @@ public class Librarian extends User {
 
     @Override
     public boolean canBorrowBooks() {
-        return false;
+        return true;
     }
 
-    void addNewBook(Book book) {
-
+    public void addNewBook(Book book) {
+        System.out.println("New book added");
     }
-    void removeBook(Book book) {
+    public void removeBook(Book book) {
+        System.out.println("Book removed");
+    }
 
+    @Override
+    void returnBook() {
+        System.out.println("Book returned");
     }
 }
