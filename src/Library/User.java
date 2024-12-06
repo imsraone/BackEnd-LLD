@@ -1,20 +1,28 @@
 package Library;
 
 public abstract class User {
-    String userId;
+    private String userId;
     private String name;
     private String contactInfo;
+    private int totalUsers;
     public User() {
-        this.userId = this.generateUniqueID();
+        this.userId = this.generateUniqueId();
+        totalUsers += 1;
     }
     public User(String name, String contactInfo) {
         this.name = name;
         this.contactInfo = contactInfo;
     }
     public User(User user) {
-        this.userId = user.userId;
+        this.userId = generateUniqueId();
         this.name = user.name;
         this.contactInfo = user.contactInfo;
+    }
+    public int getTotalUsers() {
+        return totalUsers;
+    }
+    String getUserId() {
+        return userId;
     }
     String getName(){
         return name;
@@ -28,9 +36,9 @@ public abstract class User {
     void setContactInfo(String contactInfo){
         this.contactInfo = contactInfo;
     }
-    String generateUniqueID(){
-        return "0";
+    private final String generateUniqueId(){
+        return String.valueOf(totalUsers);
     }
-    abstract void displayDashboard();
-    abstract boolean canBorrowBooks();
+    public abstract void displayDashboard();
+    public abstract boolean canBorrowBooks();
 }
