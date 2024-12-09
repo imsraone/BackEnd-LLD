@@ -3,7 +3,7 @@ package Library;
 public class NovelBook extends Book{
     private final String genre;
     public NovelBook(String isbn, String title, String author, String genre) {
-        super(isbn, title, author);
+        super(isbn, author, title);
         this.genre = genre;
     }
 

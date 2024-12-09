@@ -2,7 +2,7 @@ package Library;
 
 public class Member extends User {
     private int borrowedBooksCount;
-    private final static int MAX_BORROW_LIMIT = 5;
+    private final static int MAX_BORROW_LIMIT = 2;
     public Member(){
         super();
         borrowedBooksCount = 0;
@@ -26,6 +26,11 @@ public class Member extends User {
 
     @Override
     void returnBook() {
+        borrowedBooksCount--;
+    }
+
+    @Override
+    public void borrowBook() {
         borrowedBooksCount++;
     }
 }

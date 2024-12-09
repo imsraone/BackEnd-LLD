@@ -42,4 +42,5 @@ public abstract class User {
     }
     public abstract void displayDashboard();
     public abstract boolean canBorrowBooks();
+    public abstract void borrowBook();
 }

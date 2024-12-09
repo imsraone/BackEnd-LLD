@@ -14,6 +14,7 @@ public abstract class Book implements Lendable{
         this.isbn = isbn;
         this.author = author;
         this.title = title;
+        this.isAvailable = true;
     }
 
     public Book(Book book){
@@ -37,8 +38,13 @@ public abstract class Book implements Lendable{
 
     @Override
     public boolean lend(User user) {
-        if(isAvailable && user.canBorrowBooks()){
+        if(!isAvailable){
+            System.out.println("Book not available");
+        }else if(!user.canBorrowBooks()){
+            System.out.println("User exceeded books limit");
+        }else{
             isAvailable = false;
+            user.borrowBook();
             return true;
         }
         return false;
@@ -46,8 +52,13 @@ public abstract class Book implements Lendable{
 
     @Override
     public void returnBook(User user) {
-        isAvailable = true;
-        user.returnBook();
+        if(isAvailable){
+            System.out.println("Book already returned");
+        }else{
+            isAvailable = true;
+            user.returnBook();
+            System.out.println("Book returned successfully");
+        }
     }
 
     @Override

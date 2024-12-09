@@ -32,4 +32,9 @@ public class Librarian extends User {
     void returnBook() {
         System.out.println("Book returned");
     }
+
+    @Override
+    public void borrowBook() {
+        System.out.println("Book borrowed");
+    }
 }
