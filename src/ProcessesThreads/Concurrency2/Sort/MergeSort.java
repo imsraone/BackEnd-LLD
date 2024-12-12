@@ -30,7 +30,10 @@ public class MergeSort implements Callable<List<Integer>> {
         Future<List<Integer>> rightArrayFuture = executor.submit(rightArrayObj);
         var leftArray = leftArrayFuture.get();
         var rightArray = rightArrayFuture.get();
+        return mergeTwoArrays(leftArray, rightArray);
+    }
 
+    private static ArrayList<Integer> mergeTwoArrays(List<Integer> leftArray, List<Integer> rightArray) {
         int i = 0;
         int j = 0;
         var result = new ArrayList<Integer>();
