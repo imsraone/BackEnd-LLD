@@ -17,6 +17,8 @@ public class MergeSort implements Callable<List<Integer>> {
     @Override
     public List<Integer> call() throws Exception {
         // divide array into two equal parts
+        if(input.size() <= 1)
+            return input;
         int size = this.input.size();
         int middle = size / 2;
         List<Integer> leftSubArray = this.input.subList(0, middle);
