@@ -1,17 +1,18 @@
 package ProcessesThreads.Concurrency2.Sort;
 
-import ProcessesThreads.Concurrency2.Numbergenerator;
-
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-public class test {
+public class Client {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        System.out.println("Main thread started in "+ Thread.currentThread().getName());
         var executeService = Executors.newCachedThreadPool();
-        int arr[] = { 12, 11, 13, 5, 6, 7 };
-        Future<int[]> sortedArray = executeService.submit(new MergeSort(arr, executeService));
+        var arr = List.of(1,9,2,8,0,3,4,5);
+        var sorter = new MergeSort(arr, executeService);
+        Future<List<Integer>> sortedArray = executeService.submit(sorter);
         var res = sortedArray.get();
+        executeService.shutdown();
+        System.out.println(res);
     }
 }

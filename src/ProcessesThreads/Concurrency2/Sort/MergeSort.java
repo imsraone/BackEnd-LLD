@@ -1,47 +1,54 @@
 package ProcessesThreads.Concurrency2.Sort;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
-public class MergeSort implements Callable<int[]> {
-    public int[] input;
+public class MergeSort implements Callable<List<Integer>> {
+    public List<Integer> input;
     public ExecutorService executor;
-    public MergeSort(int[] input, ExecutorService executer) {
+    public MergeSort(List<Integer> input, ExecutorService executor) {
         this.input = input;
-        this.executor = executer;
+        this.executor = executor;
     }
 
     @Override
-    public int[] call() throws Exception {
-        var leftArray = new MergeSort(input, this.executor);
-        var rightArray = new MergeSort(input, this.executor);
-        Future<int[]> leftArrayFuture = executor.submit(leftArray);
-        Future<int[]> rightArrayFuture = executor.submit(rightArray);
-        var leftSortedArray = leftArrayFuture.get();
-        var rightSortedArray = rightArrayFuture.get();
-        return mergeArrays(leftSortedArray, rightSortedArray);
-    }
+    public List<Integer> call() throws Exception {
+        // divide array into two equal parts
+        int size = this.input.size();
+        int middle = size / 2;
+        List<Integer> leftSubArray = this.input.subList(0, middle);
+        List<Integer> rightSubArray = this.input.subList(middle, size);
 
-    public int[] mergeArrays(int[] arr1, int[] arr2) {
-        int n1 = arr1.length;
-        int n2 = arr2.length;
-        int[] arr3 = new int[arr1.length + arr2.length];
-        int i = 0, j = 0, k = 0;
+        var leftArrayObj = new MergeSort(leftSubArray, executor);
+        var rightArrayObj = new MergeSort(rightSubArray, executor);
+        Future<List<Integer>> leftArrayFuture = executor.submit(leftArrayObj);
+        Future<List<Integer>> rightArrayFuture = executor.submit(rightArrayObj);
+        var leftArray = leftArrayFuture.get();
+        var rightArray = rightArrayFuture.get();
 
-        // Traverse arr1 and insert its elements into arr3
-        while (i < n1) {
-            arr3[k++] = arr1[i++];
+        int i = 0;
+        int j = 0;
+        var result = new ArrayList<Integer>();
+        while (i < leftArray.size() && j < rightArray.size()) {
+            if (leftArray.get(i) < rightArray.get(j)) {
+                result.add(leftArray.get(i));
+                i++;
+            }else{
+                result.add(rightArray.get(j));
+                j++;
+            }
         }
-
-        // Traverse arr2 and insert its elements into arr3
-        while (j < n2) {
-            arr3[k++] = arr2[j++];
+        while (i < leftArray.size()) {
+            result.add(leftArray.get(i));
+            i++;
         }
-
-        // Sort the entire arr3
-        Arrays.sort(arr3);
-        return arr3;
+        while (j < rightArray.size()) {
+            result.add(rightArray.get(j));
+            j++;
+        }
+        return result;
     }
 }
