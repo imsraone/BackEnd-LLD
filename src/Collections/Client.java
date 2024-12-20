@@ -47,5 +47,19 @@ public class Client {
         for (var item : inventoryManagement.getRecentlyUsedItems()) {
             System.out.println(item.getName() + " " + item.getId());
         }
+
+        //Mile Stone 4
+        System.out.println("Mile Stone 4");
+
+        OrderProcessor orderProcessor = new OrderProcessor();
+        orderProcessor.addOrder(new Order("01", false));
+        orderProcessor.addOrder(new Order("02", false));
+        orderProcessor.addOrder(new Order("03", false));
+        orderProcessor.addOrder(new Order("04", true));
+        orderProcessor.addOrder(new Order("05", false));
+
+        while(orderProcessor.getOrderCount() > 0){
+            System.out.println(orderProcessor.processOrder().getOrderId());
+        }
     }
 }
