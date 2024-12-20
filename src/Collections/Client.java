@@ -37,5 +37,7 @@ public class Client {
         for (var item : inventoryManagement.getAllItems()) {
             System.out.println(item.getName() + " " + item.getId());
         }
+        System.out.println("Getting the name of the item with id 4");
+        System.out.println(inventoryManagement.get("4").getName());
     }
 }
