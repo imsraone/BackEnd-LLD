@@ -11,10 +11,10 @@ public class RecentlyUsedItems {
     }
 
     public void setRecentlyUsedItems(Item item) {
-        if(recentlyUsedItems.size() >= limit){
+        recentlyUsedItems.remove(item);
+        recentlyUsedItems.addFirst(item);
+        if(recentlyUsedItems.size() > limit){
             recentlyUsedItems.removeLast();
-        }else{
-            recentlyUsedItems.addFirst(item);
         }
     }
 

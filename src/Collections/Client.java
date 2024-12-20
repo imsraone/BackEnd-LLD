@@ -39,7 +39,10 @@ public class Client {
         }
         System.out.println("Getting the name of the item with id 4");
         System.out.println(inventoryManagement.get("4").getName());
+
+        //Mile Stone 3
         inventoryManagement.get("1");
+        inventoryManagement.get("4");
         System.out.println("Recently accessed the items");
         for (var item : inventoryManagement.getRecentlyUsedItems()) {
             System.out.println(item.getName() + " " + item.getId());
